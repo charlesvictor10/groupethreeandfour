@@ -1,0 +1,58 @@
+<mat-card class="example-card">
+    <mat-card-title>Page d'inscription</mat-card-title>
+    <mat-card-content>
+      <form *ngIf="!isRegister" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+       
+        <div class="form-group">
+            <label>Nom</label>
+            <input type="text" class="form-control" name="nom" [(ngModel)]="form.nom" required #nom="ngModel" minlength="2" maxlength="25"  [ngClass]="{'is-invalid':f.submitted && nom.errors}">
+            <div *ngIf="nom.errors && f.submitted" class="invalid-feedback">
+                <div *ngIf="nom.errors['required']">Nom Obligatoire</div>
+                <div *ngIf="nom.errors['minlength']">Le nom doit avoir plus de 2 caracteres</div>
+                <div *ngIf="nom.errors['maxlength']">Le nom ne peut pas avoir plus de 25 caracteres</div>
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label>Prenom</label>
+            <input type="text" class="form-control" name="prenom" [(ngModel)]="form.prenom" required #prenom="ngModel" minlength="2" maxlength="50" [ngClass]="{'is-invalid':f.submitted && prenom.errors}">
+            <div *ngIf="prenom.errors && f.submitted" class="invalid-feedback">
+                <div *ngIf="prenom.errors['required']">Prenom Obligatoire</div>
+                <div *ngIf="prenom.errors['minlength']">Le prenom doit avoir plus de 2 caracteres</div>
+                <div *ngIf="prenom.errors['maxlength']">Le prenom ne peut pas avoir plus de 50 caracteres</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Adresse Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel" email [ngClass]="{'is-invalid':f.submitted && email.errors}">
+            <div *ngIf="email.errors && f.submitted" class="invalid-feedback">
+                <div *ngIf="email.errors['required']">Adresse email obligatoire</div>
+                <div *ngIf="email.errors['email']">Adresse email invalide</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Mot de Passe</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required #password="ngModel" minlength="6" [ngClass]="{'is-invalid':f.submitted && password.errors}">
+            <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+                <div *ngIf="password.errors['required']">Mot de Passe Obligatoire</div>
+                <div *ngIf="password.errors['minlength']">Le Mot de Passe doit avoir plus de 6 caracteres</div>
+            </div>
+        </div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <button class="btn btn-primary btn-block">Inscription</button>
+        </div>
+
+        <div class="form-group">
+            <div class="alert alert-danger" *ngIf="f.submitted && isRegisterFaled">Impossible de s'Inscrire' : {{errorMessage}}</div>
+        </div>
+      </form>
+
+      <div class="alert alert-success" *ngIf="isRegister">Utilisateur inscrit avec succes</div>
+    </mat-card-content>
+    
+  </mat-card>
+

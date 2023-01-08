@@ -1,0 +1,32 @@
+<mat-card class="example-card">
+    <mat-card-title>Page de Connexion</mat-card-title>
+    <mat-card-content>
+      <form *ngIf="!isLogin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+            <label>Adresse Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel" [ngClass]="{'is-invalid':f.submitted && email.errors}">
+            <div *ngIf="email.errors && f.submitted" class="invalid-feedback">Adresse Email Obligatoire</div>
+        </div>
+
+        <div class="form-group">
+            <label>Mot de Passe</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required #password="ngModel" minlength="6" [ngClass]="{'is-invalid':f.submitted && password.errors}">
+            <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+                <div *ngIf="password.errors['required']">Mot de Passe Obligatoire</div>
+                <div *ngIf="password.errors['minlength']">Le Mot de Passe doit avoir plus de 6 caracteres</div>
+            </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <button class="btn btn-primary btn-block">Se Connecter</button>
+        </div>
+
+        <div class="form-group">
+            <div class="alert alert-danger" *ngIf="f.submitted && isLoginFaled">Impossible de se Connecter : {{errorMessage}}</div>
+        </div>
+      </form>
+
+      <div class="alert alert-success" *ngIf="isLogin">Utilisateur {{roles}} connecter avec succes</div>
+    </mat-card-content>
+    
+  </mat-card>
